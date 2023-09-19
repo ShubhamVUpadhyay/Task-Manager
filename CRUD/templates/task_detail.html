@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6 my-5">
+            <div class="jumbotron bg-dark text-white">
+            <h1>{{ task.title }}</h1>
+            <p>{{ task.description }}</p>
+            <p>Completed: {% if task.completed %}Yes{% else %}No{% endif %}</p>
+            <a href="{% url 'task_update' task.pk %}"><button class="btn btn-primary">Edit task</button></a>
+            <a href="{% url 'task_delete' task.pk %}"><button class="btn btn-danger">Delete task</button></a>
+        </div>
+    </div>
+    </div>
+</div>
+{% endblock %}

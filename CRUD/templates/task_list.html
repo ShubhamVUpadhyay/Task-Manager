@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container-fluid">
+  
+  <div class="row justify-content-center">
+    <div class="col-md">
+      <div class="jumbotron bg-dark text-center h-lg-25 mt-3">
+        <h3 class="text-center text-white">Welcome to The Task manager</h3>
+        <a href="{% url 'task_create' %}"><button class="btn btn-success mx-4 my-4">Add New</button></a><span class="text-center text-white mb-4">Your Tasks</span>
+      </div>
+      <div class="row">
+        {% for task in tasks %}
+        <div class="col-lg-4 col-md-6">
+          <div class="card my-3">
+            <div class="card-body">
+              <h3 class="card-title text-primary">{{ task.title }}</h3>
+              <p class="card-text"><strong>Task Detail : </strong>{{ task.description|truncatechars:50 }}</p>
+              <p class="card-text"><strong>Creation Date : </strong>{{ task.created_at }}</p>
+              <p class="card-text">
+                <strong>Status:</strong> 
+                {% if task.completed %}<span class="badge badge-success p-1">Completed</span>{% else %}<span class="badge badge-danger p-1">Pending</span>{% endif %}
+              </p>
+              <a href="{% url 'task_detail' task.pk %}" class="btn btn-primary my-3">Read More</a>
+              <a href="{% url 'task_delete' task.pk %}" class="btn btn-danger my-3 mx-2">Delete</a>
+            </div>
+          </div>
+        </div>
+        {% empty %}
+        <div class="col-12">
+          <h3 class="text-white">No tasks yet.</h3>
+          <a href="{% url 'task_create' %}" class="btn btn-primary mx-4 my-4">Add Task</a>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
